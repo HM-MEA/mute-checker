@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
