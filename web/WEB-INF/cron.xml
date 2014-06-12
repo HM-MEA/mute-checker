@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+	<cron>
+		<url>/cron</url>
+		<description>crontask run every 30 minutes</description>
+		<schedule>every 30 minutes from 00:00 to 23:59</schedule>
+		<timezone>Asia/Tokyo</timezone>
+	</cron>
+</cronentries>
