@@ -47,12 +47,12 @@ public class CallbackServlet extends HttpServlet {
             useraccount.setAccess_token_secret(twitter.getOAuthAccessToken().getTokenSecret());
             em.merge(useraccount);
         }
+		request.getSession().setAttribute("useraccount",useraccount);    
 	} catch (TwitterException | IllegalStateException e) {
 	    e.printStackTrace();
 	} finally {
 	    em.close();
 	}
-        request.getSession().setAttribute("useraccount",twitter);    
         response.sendRedirect(request.getContextPath() + "/index.jsp");        
     }
 }

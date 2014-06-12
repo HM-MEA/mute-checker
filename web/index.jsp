@@ -7,6 +7,6 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-	<p>Welcome ${twitter.screenName}
+	<p>Welcome ${useraccount.screen_name}
     </body>
 </html>
