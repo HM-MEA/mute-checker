@@ -41,6 +41,7 @@ public class TaskServlet extends HttpServlet {
 					ua.setComplete_flag(true);
 					ua.setMuted_list(ua.getTmp_muted_list());
 					em.merge(ua);
+					log.info("Complete");
 					break;
 				}
 
@@ -51,8 +52,9 @@ public class TaskServlet extends HttpServlet {
 				if(rs.isSourceMutingTarget()){
 					ua.getTmp_muted_list().add(id);
 				}
-			em.merge(ua);
 			}
+			ua.setUpdated_at(DateUtils.getFormatedNowDate());
+			em.merge(ua);
 		} catch (TwitterException e){
 			throw new ServletException(e);
 		} finally {

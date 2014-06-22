@@ -34,13 +34,15 @@ public class CronServlet extends HttpServlet {
 				Calendar nowcalendar = DateUtils.getParsedCalendar(DateUtils.getFormatedNowDate()); //現在時間のCalendar
 				Calendar oldcalendar = DateUtils.getParsedCalendar(cts.getCron_execute_at()); //前回のCron実行時間のCalendar
 				
-				ArrayList<UserAccount> list;
-				String taskurl;
+				ArrayList<UserAccount> list = new ArrayList<>();
+				String taskurl = "";
 				if(nowcalendar.get(Calendar.DAY_OF_MONTH) == oldcalendar.get(Calendar.DAY_OF_MONTH)){ //その日初めてではないCronの実行の場合
 					Query q = em.createNamedQuery("getUserAccountByCompletedFlag");
 					q.setParameter("cf", false);
-					list = (ArrayList<UserAccount>) q.getResultList(); //処理が終了していないアカウントを呼び出す
-					taskurl = "/task";	//定時処理用URL
+					if(!q.getResultList().isEmpty()){
+						list = (ArrayList<UserAccount>) q.getResultList(); //処理が終了していないアカウントを呼び出す
+						taskurl = "/task";	//定時処理用URL
+					}
 				}else{ //その日初めての実行の場合
 					Query q = em.createNamedQuery("getAllUserAccount");
 					list = (ArrayList<UserAccount>) q.getResultList(); //すべてのアカウントを呼び出す
@@ -57,7 +59,7 @@ public class CronServlet extends HttpServlet {
 				em.merge(cts);
 			}
 		} catch (ParseException e) {
-			e.printStackTrace();
+			throw new ServletException(e);
 		} finally {
 			em.close();
 		}
