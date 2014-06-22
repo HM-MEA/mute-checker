@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="getUserAccountByUserId",query="select ua from UserAccount ua where ua.user_id = :uid"),
+	@NamedQuery(name="getUserAccountByCompletedFlag",query="select ua from UserAccount ua where ua.complete_flag = :cf"),
 	@NamedQuery(name="getAllUserAccount",query="select ua from UserAccount ua")
 })
 public class UserAccount implements Serializable{
@@ -28,6 +29,9 @@ public class UserAccount implements Serializable{
     private ArrayList<Long> tmp_muted_list;
     private boolean complete_flag;
     private String updated_at;
+
+	public UserAccount() {
+	}
 
     public UserAccount(long user_id, String screen_name, String access_token, String access_token_secret, ArrayList<Long> follower_list, ArrayList<Long> muted_list, ArrayList<Long> tmp_muted_list, boolean complete_flag, String updated_at) {
 	this.user_id = user_id;
