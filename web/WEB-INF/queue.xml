@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queue-entries>
+  <queue>
+    <name>task</name>
+    <rate>30/m</rate>
+    <bucket-size>10</bucket-size>
+    <retry-parameters>
+    	<task-retry-limit>3</task-retry-limit>
+    </retry-parameters>
+  </queue>
+</queue-entries>
