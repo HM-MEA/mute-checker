@@ -24,9 +24,9 @@ public class UserAccount implements Serializable{
     private String screen_name;
     private String access_token;
     private String access_token_secret;
-    private ArrayList<Long> follower_list;
-    private ArrayList<Long> muted_list;
-    private ArrayList<Long> tmp_muted_list;
+    private ArrayList<Long> follower_list; //フォロワーのリスト
+    private ArrayList<Long> muted_list; //ミュートユーザーのリスト最終版
+    private ArrayList<Long> tmp_muted_list; //ミュートユーザーのリスト途中経過版
     private boolean complete_flag;
     private String updated_at;
 
