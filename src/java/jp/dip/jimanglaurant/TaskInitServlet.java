@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import twitter4j.CursorSupport;
 import twitter4j.IDs;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -56,7 +55,7 @@ public class TaskInitServlet extends HttpServlet {
 		} catch (TwitterException e){
 			throw new ServletException(e);
 		} finally {
-			em.clear();
+			em.close();
 		}
 	}
 }
