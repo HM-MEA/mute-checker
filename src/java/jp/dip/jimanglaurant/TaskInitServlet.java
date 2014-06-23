@@ -19,7 +19,7 @@ public class TaskInitServlet extends HttpServlet {
 	private static final Logger log = Logger.getLogger(TaskInitServlet.class.getName());
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long user_id = Long.parseLong(request.getParameter("user_id"));
 		EntityManager em  = EMF.get().createEntityManager();
 		Query query = em.createNamedQuery("getUserAccountByUserId");

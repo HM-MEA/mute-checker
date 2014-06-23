@@ -33,7 +33,7 @@ public class CronServlet extends HttpServlet {
 				cts = clist.get(0);
 				Calendar nowcalendar = DateUtils.getParsedCalendar(DateUtils.getFormatedNowDate()); //現在時間のCalendar
 				Calendar oldcalendar = DateUtils.getParsedCalendar(cts.getCron_execute_at()); //前回のCron実行時間のCalendar
-				
+								
 				ArrayList<UserAccount> list;
 				String taskurl = "";
 				if(nowcalendar.get(Calendar.DAY_OF_MONTH) == oldcalendar.get(Calendar.DAY_OF_MONTH)){ //その日初めてではないCronの実行の場合
@@ -49,7 +49,7 @@ public class CronServlet extends HttpServlet {
 				}
 				
 				Queue queue = QueueFactory.getQueue("task");
-				for(UserAccount ua : list){
+				for (UserAccount ua : list) {
 					TaskOptions to = TaskOptions.Builder.withUrl(taskurl).param("user_id",String.valueOf(ua.getUser_id()));
 					queue.add(to); //TaskQueueに放り込む
 				}

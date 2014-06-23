@@ -11,24 +11,6 @@
 	</security-constraint>
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>TaskInit</web-resource-name>
-			<url-pattern>/task_init</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>admin</role-name>
-		</auth-constraint>
-	</security-constraint>
-	   <security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Task</web-resource-name>
-			<url-pattern>/task</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>admin</role-name>
-		</auth-constraint>
-	</security-constraint>	
-	<security-constraint>
-		<web-resource-collection>
 			<web-resource-name>ssl</web-resource-name>
 			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
