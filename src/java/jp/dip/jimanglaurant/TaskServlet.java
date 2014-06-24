@@ -47,6 +47,10 @@ public class TaskServlet extends HttpServlet {
 				int n = rand.nextInt(follower_list.size());
 				Long id = follower_list.get(n);
 				follower_list.remove(n);
+				if(twitter.showUser(id).isProtected()){
+					log.warning("user:" + id + " is protected");
+					continue;
+				}
 				Relationship rs = twitter.showFriendship(id, ua.getUser_id());
 				if(rs.isSourceMutingTarget()){
 					ua.getTmp_muted_list().add(id);
