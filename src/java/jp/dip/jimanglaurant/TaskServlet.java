@@ -23,16 +23,16 @@ public class TaskServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long user_id = Long.parseLong(request.getParameter("user_id"));
 		EntityManager em  = EMF.get().createEntityManager();
-		Query query = em.createNamedQuery("getUserAccountByUserId");
-		query.setParameter("uid", user_id);
-		UserAccount ua = (UserAccount) query.getResultList().get(0);
-		log.info("user:" + ua.getScreen_name());
-		
-		TwitterFactory tf = new TwitterFactory();
-		Twitter twitter = tf.getInstance();
-		twitter.setOAuthAccessToken(new AccessToken(ua.getAccess_token(),ua.getAccess_token_secret()));
-		
 		try{
+			Query query = em.createNamedQuery("getUserAccountByUserId");
+			query.setParameter("uid", user_id);
+			UserAccount ua = (UserAccount) query.getResultList().get(0);
+			log.info("user:" + ua.getScreen_name());
+
+			TwitterFactory tf = new TwitterFactory();
+			Twitter twitter = tf.getInstance();
+			twitter.setOAuthAccessToken(new AccessToken(ua.getAccess_token(),ua.getAccess_token_secret()));
+
 			ArrayList<Long> follower_list = ua.getFollower_list();
 			Random rand = new Random();
 			for(int i = 0;i < 50;i++){
@@ -47,18 +47,18 @@ public class TaskServlet extends HttpServlet {
 				int n = rand.nextInt(follower_list.size());
 				Long id = follower_list.get(n);
 				follower_list.remove(n);
-				if(twitter.showUser(id).isProtected()){
-					log.warning("user:" + id + " is protected");
-					continue;
-				}
-				Relationship rs = twitter.showFriendship(id, ua.getUser_id());
-				if(rs.isSourceMutingTarget()){
-					ua.getTmp_muted_list().add(id);
+				try{
+					Relationship rs = twitter.showFriendship(id, ua.getUser_id());
+					if(rs.isSourceMutingTarget()){
+						ua.getTmp_muted_list().add(id);
+					}
+				} catch (TwitterException e){
+					log.warning("user:" + id + " throw Exception. " + e.getErrorMessage());
 				}
 			}
 			ua.setUpdated_at(DateUtils.getFormatedNowDate());
 			em.merge(ua);
-		} catch (TwitterException e){
+		} catch (Exception e) {
 			throw new ServletException(e);
 		} finally {
 			em.close();
